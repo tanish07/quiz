@@ -9,13 +9,13 @@ import java.util.Collection;
 @Entity
 public class Test {
     @Id
-//	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
     private boolean open;
     private String password;
     private Integer duration;
-    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "test")
+    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "tests")
     @JsonIgnore
     private Collection<Student> students = null;
     @ManyToOne(fetch = FetchType.LAZY)

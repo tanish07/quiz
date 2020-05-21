@@ -9,12 +9,12 @@ import java.util.Collection;
 @Entity
 public class TestA {
     @Id
-//	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer testId;
     private Integer marks;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ElementCollection
     private Collection<String> answers = null;
 
 

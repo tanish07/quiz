@@ -1,5 +1,5 @@
 
-package IIITB;
+package QuizPlatform;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -12,7 +12,6 @@ import beans.Question;
 import beans.Test;
 import beans.TestA;
 import com.mysql.cj.xdevapi.JsonArray;
-import data.*;
 import org.hibernate.Session;
 
 
@@ -45,7 +44,7 @@ public class MyResource {
 
     	Session session = SessionUtil.getSession();
         session.beginTransaction();
-        Student s=session.get(Student.class,id);
+        beans.Student s=session.get(beans.Student.class,id);
     	s.setLogin(false);
 
 		session.save(s);
@@ -81,6 +80,8 @@ public class MyResource {
 
                     }
                     else {
+                        st.setLogin(false);
+                        session.save(st);
                         session.getTransaction().commit();
                         session.close();
                         return Response.status(Response.Status.OK).entity(st.getId()).build();
@@ -146,6 +147,8 @@ public class MyResource {
 
                     }
                     else {
+                        st.setLogin(false);
+                        session.save(st);
                         session.getTransaction().commit();
                         session.close();
                         return Response.status(Response.Status.OK).entity(st.getId()).build();
@@ -177,7 +180,7 @@ public class MyResource {
             @FormParam("year") String year,
             @FormParam("password") String password)
     {
-        Student s=new Student();
+        beans.Student s=new beans.Student();
         s.setAnswers(new ArrayList<TestA>());
         s.setTests(new ArrayList<Test>());
         s.setCourse(course);
@@ -207,6 +210,7 @@ public class MyResource {
         }
         catch(Exception e)
         {
+            e.printStackTrace();
             session.getTransaction().commit();
             session.close();
             return Response.status(Response.Status.UNAUTHORIZED).build();
@@ -224,7 +228,7 @@ public class MyResource {
             @FormParam("course") String course,
             @FormParam("password") String password)
     {
-        Faculty s=new Faculty();
+        beans.Faculty s=new beans.Faculty();
         s.setTests(new ArrayList<Test>());
         s.setCourse(course);
         s.setDob(dob);
@@ -281,10 +285,9 @@ public class MyResource {
         }
         if(list==null)
             list=new ArrayList<>();
-        session.getTransaction().commit();
-        session.close();
 
         ArrayList<ArrayList<String>> l=new ArrayList<>();
+        System.out.println(list.size()+" in testlistbyfacultyname");
         Iterator<Test> it=list.iterator();
         while(it.hasNext())
         {
@@ -300,6 +303,8 @@ public class MyResource {
             al.add(ts.getDuration()+"");
             l.add(al);
         }
+        session.getTransaction().commit();
+        session.close();
         return Response.ok().entity(l).build();
     }
     @POST
@@ -314,11 +319,9 @@ public class MyResource {
         Collection<TestA> answer=null;
         Session session = SessionUtil.getSession();
         session.beginTransaction();
-        Student s=session.get(Student.class,id);
+        beans.Student s=session.get(beans.Student.class,id);
         list=s.getTests();
         answer=s.getAnswers();
-        session.getTransaction().commit();
-        session.close();
 
         ArrayList<ArrayList<String>> ls=new ArrayList<>();
         Iterator<Test> it=list.iterator();
@@ -335,6 +338,8 @@ public class MyResource {
             al.add(ta.getId()+"");
             ls.add(al);
         }
+        session.getTransaction().commit();
+        session.close();
         return Response.ok().entity(ls).build();
     }
 
@@ -357,8 +362,6 @@ public class MyResource {
         testa=session.get(TestA.class,taid);
         ques=test.getQuestions();
         ans=testa.getAnswers();
-        session.getTransaction().commit();
-        session.close();
 
         ArrayList<ArrayList<String>> ls=new ArrayList<>();
         Iterator<Question> it=ques.iterator();
@@ -378,10 +381,12 @@ public class MyResource {
             al.add(tqs.getOption3());
             al.add(tqs.getOption4());
             al.add(tqs.getAnswer());
-            al.add(tqs.getMarks()+"");
             al.add(a);
+            al.add(tqs.getMarks()+"");
             ls.add(al);
         }
+        session.getTransaction().commit();
+        session.close();
         return Response.ok().entity(ls).build();
     }
 
@@ -400,16 +405,16 @@ public class MyResource {
         Session session = SessionUtil.getSession();
         session.beginTransaction();
         test=session.get(Test.class,tid);
-        tests=session.get(Student.class,sid).getTests();
+        tests=session.get(beans.Student.class,sid).getTests();
         ques=test.getQuestions();
-        session.getTransaction().commit();
-        session.close();
 
 
         Iterator<Test> it1=tests.iterator();
         while(it1.hasNext()) {
             Test t=it1.next();
             if (t.getId()==tid) {
+                session.getTransaction().commit();
+                session.close();
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
         }
@@ -433,6 +438,8 @@ public class MyResource {
             al.add(tqs.getMarks()+"");
             ls.add(al);
         }
+        session.getTransaction().commit();
+        session.close();
         return Response.ok().entity(ls).build();
     }
 
@@ -440,7 +447,7 @@ public class MyResource {
     @Path("/saveanswer")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces("text/plain")
-    public Response saveanswer(JSon2 j2)
+    public Response saveanswer(data.JSon2 j2)
     {
         int tid=j2.getTestid();
         int sid=j2.getStudentid();
@@ -490,8 +497,6 @@ public class MyResource {
         Collection<Test> list=null;
         beans.Faculty s=session.get(beans.Faculty.class,id);
         list=s.getTests();
-        session.getTransaction().commit();
-        session.close();
 
         ArrayList<ArrayList<String>> l=new ArrayList<>();
         Iterator<Test> it=list.iterator();
@@ -509,6 +514,8 @@ public class MyResource {
             al.add(ts.getDuration()+"");
             l.add(al);
         }
+        session.getTransaction().commit();
+        session.close();
         return Response.ok().entity(l).build();
     }
 
@@ -562,16 +569,17 @@ public class MyResource {
     @Path("/savetest")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces("text/plain")
-    public Response questionList(Json1 js)
+    public Response questionList(data.Json1 js)
     {
         Test test=new Test();
         test.setDuration(js.getDuration());
         test.setName(js.getName());
         if(js.getPassword().equals(""))
-            test.setOpen(false);
-        else
             test.setOpen(true);
+        else
+            test.setOpen(false);
         test.setPassword(js.getPassword());
+        System.out.println(js.getQuestionlist().size()+" in savetest");
         Iterator<Question> it=js.getQuestionlist().iterator();
         Session session = SessionUtil.getSession();
         session.beginTransaction();
@@ -580,10 +588,14 @@ public class MyResource {
             session.save(it.next());
         }
         test.setQuestions(js.getQuestionlist());
+        beans.Faculty f=session.get(beans.Faculty.class,js.getFacultyid());
+        System.out.println(f.getTests().size()+" facultyTestSize");
+//        Collection<Test> tl=f.getTests();
+//        tl.add(test);
+        f.getTests().add(test);
+        test.setFaculty(f);
         session.save(test);
-        beans.Faculty s=session.get(beans.Faculty.class,js.getFacultyid());
-        s.getTests().add(test);
-        session.save(s);
+        session.update(f);
         session.getTransaction().commit();
         session.close();
         return Response.status(Response.Status.OK).build();

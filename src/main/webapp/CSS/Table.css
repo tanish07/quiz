@@ -1,0 +1,36 @@
+.table{
+	margin: auto;
+	border: 3px solid #123768;
+	padding: 8px;
+	border-radius: 5px;
+}
+
+.student_name{
+	margin-left: 15%;
+}
+
+.student_image{
+	height: 80%;
+	width: 20%;
+	margin-left: 15%;
+	border-radius: 5px;
+}
+
+.logo_image{
+	float: right;
+	margin-right: 15%;
+	border-radius: 5px;
+}
+
+.my-row{
+	margin-top: 5%;
+	padding-bottom: 5px; 
+}
+
+.row-table{
+	padding-bottom: 5px;
+}
+
+.dropdown-item{
+	color: white;
+}
