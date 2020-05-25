@@ -1,9 +1,23 @@
 var test=new Object();
 var array=new Array();
+function getRadioVal(form, name) {
+    var val;
+    // get list of radio buttons with specified name
+    var radios = form.elements[name];
+    
+    // loop through list of radio buttons
+    for (var i=0, len=radios.length; i<len; i++) {
+        if ( radios[i].checked ) { // radio checked?
+            val = radios[i].value; // if so, hold its value in val
+            break; // and break out of for loop
+        }
+    }
+    return val; // return value of checked radio or undefined if none checked
+}
 function first(){
-    var d;
-    var n;
-    var p;
+    var d=document.getElementById("testduration");
+    var n=document.getElementById("testname");
+    var p=document.getElementById("testpassword");
     test.facultyid = JSON.parse(sessionStorage.getItem("id"));
     test.duration=d;
     test.name=n;
@@ -11,14 +25,14 @@ function first(){
 }
 function second(){
     var question = new Object();
-    var m;
-    var mc;
-    var q;
-    var a;
-    var o1;
-    var o2;
-    var o3;
-    var o4;
+    var m=document.getElementById("marks").value;;
+    var mc=getRadioVal(document.getElementById('questionlist'), 'mcq');
+    var q=document.getElementById("quest").value;
+    var a=document.getElementById("ans").value;
+    var o1=document.getElementById("opt1").value;
+    var o2=document.getElementById("opt2").value;
+    var o3=document.getElementById("opt3").value;
+    var o4=document.getElementById("opt4").value;
     question.quest=q;
     question.answer=a;
     question.mcq=mc;
@@ -28,6 +42,7 @@ function second(){
     question.option3=o3;
     question.option4=o4;
     array.push(question);
+    document.getElementById("questionlist").reset();
 }
 function submit(){
     test.questionlist=array;
@@ -49,3 +64,36 @@ function submit(){
             }
     });
 }
+
+
+
+
+
+
+
+
+
+
+// var questions=[];
+// function myFunction() {
+//     var elements = document.getElementById("questionlist").elements;
+//     var obj ={};
+//     for(var i = 0 ; i < elements.length-2 ; i++){
+//         var item = elements.item(i);
+//         obj[item.name] = item.value;
+//     }
+
+//    // document.getElementById("demo").innerHTML = JSON.stringify(obj);
+
+    
+//     questions.push(JSON.stringify(obj));
+//     document.getElementById("questionlist").reset();
+//     alert("Question was successfully added");
+   
+
+
+// }
+    
+
+
+
