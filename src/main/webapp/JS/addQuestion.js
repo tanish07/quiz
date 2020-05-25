@@ -15,13 +15,14 @@ function getRadioVal(form, name) {
     return val; // return value of checked radio or undefined if none checked
 }
 function first(){
-    var d=document.getElementById("testduration");
-    var n=document.getElementById("testname");
-    var p=document.getElementById("testpassword");
+    var d=document.getElementById("testduration").value;
+    var n=document.getElementById("testname").value;
+    var p=document.getElementById("testpassword").value;
     test.facultyid = JSON.parse(sessionStorage.getItem("id"));
     test.duration=d;
     test.name=n;
     test.password=p;
+    sessionStorage.setItem("table", JSON.stringify(test));
 }
 function second(){
     var question = new Object();
@@ -44,26 +45,35 @@ function second(){
     array.push(question);
     document.getElementById("questionlist").reset();
 }
-function submit(){
+
+function submit1(){
+    var d=document.getElementById("testduration").value;
+    var n=document.getElementById("testname").value;
+    var p=document.getElementById("testpassword").value;
+    test.facultyid = JSON.parse(sessionStorage.getItem("id"));
+    test.duration=d;
+    test.name=n;
+    test.password=p;
     test.questionlist=array;
     sessionStorage.setItem("table", JSON.stringify(test));
     var api = "http://localhost:8080/quiz_war/webapi/quiz/savetest";
-    $.ajax
-    ({
-        type : "POST",
-        url : api,
-        data : test,
-        async: false,
-        cache: false,
-        statusCode:
-            {
-                200:	function(response)
-                {
-                    location.href="http://localhost:8080/Student3_war/HTML/facultyHome.html";
 
-                },
-            }
-    });
+    // $.ajax
+    // ({
+    //     type : "POST",
+    //     url : api,
+    //     data : test,
+    //     async: false,
+    //     cache: false,
+    //     statusCode:
+    //         {
+    //             200:	function(response)
+    //             {
+    //                 location.href="http://localhost:8080/Student3_war/HTML/facultyHome.html";
+    //
+    //             }
+    //         }
+    // });
 }
 
 
