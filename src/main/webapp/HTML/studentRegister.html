@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+	<script src="../bootstrap/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="../jquery/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+	<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+	<link rel="stylesheet" type="text/css" href="../CSS/Register.css">
+	<script type="text/javascript" src="../JS/studentRegister.js"></script>
+</head>
+<body>
+    <div class = "modal-dialog text-center">
+		<div class = "col-sm-9 col-lg-9 col-md-9 col-xs-9 main-section">
+			<div class = "modal-content" id = "div1">
+				<div class="col-12 icon">
+					<img src="../images/icon.jpeg">
+				</div> 
+					<form class="col-12 col-md-12 col-lg-12 col-xs-12" id="Register_form" onSubmit = "return Student()" >
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Enter Roll Number" autocomplete="off" id="rollno" required >
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Enter Name" autocomplete="off" id="name" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Enter Date of Birth" autocomplete="off" id="dob" required onfocus="(this.type='date')">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Enter Course" autocomplete="off" id="course" required>
+						</div>
+						<div class="form-group">
+							<input type="number" min="1997" max="2019" class="form-control" placeholder="Enter Year of Admission" autocomplete="off" id="year" required>
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" placeholder="Set Password" autocomplete="off" id="password1" required>
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" placeholder="Retype Password" autocomplete="off" id="password2" required>
+						</div>
+
+						<input type="submit" class="btn" value="Register">
+					</form>
+					<p>Already Registered? <a href="studentLogin.html">Login</a></p>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
