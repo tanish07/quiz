@@ -46,6 +46,7 @@ function second(){
 }
 function submit(){
     test.questionlist=array;
+    sessionStorage.setItem("table", JSON.stringify(test));
     var api = "http://localhost:8080/quiz_war/webapi/quiz/savetest";
     $.ajax
     ({
