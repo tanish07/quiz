@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question add</title>
+    <link rel="stylesheet" href="..//CSS/addquestion.css">
+    <script type="text/javascript" src="..//JS/addquestion.css"></script>
+
+</head>
+<body>
+
+<div class="login-page">
+    <h1>Test Details</h1>
+  <div class="form">
+    <form class="register-form">
+      <input type="text" placeholder="name"/>
+      <input type="password" placeholder="password"/>
+      <input type="text" placeholder="email address"/>
+      <button>create</button>
+      <p class="message">Already registered? <a href="#">Sign In</a></p>
+    </form>
+    <form class="login-form">
+      <input type="text" placeholder="TestDuration" id="testduration"/>
+      <input type="text" placeholder="TestName" id="testname"/>
+      <input type="text" placeholder="Password" id="password"/>
+      <button id="testDetails" onclick="first()">Add Test Details</button>
+      <!-- <p class="message">Not registered? <a href="#">Create an account</a></p> -->
+    </form>
+  </div>
+</div>
+<div class="login-page">
+    <h1> Question Details</h1>
+    <div class="form"> 
+    
+    <form id="questionlist">
+        <textarea id="quest" name="quest" rows="10" cols="20" placeholder="Enter your question here"></textarea>
+        <div>
+            <span><h1>Is the following question mcq?</h1></span>
+            <label for="t">Yes</label>
+            <input name="mcq" id="t" value="true" type="radio">
+            <label for="f">No</label>
+            <input name="mcq" id="f" value="false" type="radio">
+        </div>
+    <div>
+        <lable for="marks">Marks</lable>
+        <input id="marks" name="marks" type="text">
+        <label for="opt1">Option1</label>
+        <input id="opt1" name="option1" type="text">
+        <br><br>
+        <label for="opt2">Option2</label>
+        <input id="opt2" name="option2" type="text">
+        <br><br>
+        <label for="opt3">Option3</label>
+        <input id="opt3" name="option3" type="text">
+        <br><br>
+        <label for="opt4">Option4</label>
+        <input id="opt4" name="option4" type="text">
+        <br><br>
+        <label for="ans">Answer</label>
+        <input id="ans" name="answer" type="text">
+    </div>
+
+    <div>
+        <button id="add"  type="button" onclick="second()">Add</button>
+        <br><br>
+        <button id="submit" type="button" onclick="submit()">Submit</button>
+    </div>
+
+
+        
+    </form> 
+
+</div>
+
+
+
+
+
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Add Test</title>
+    <link rel="stylesheet" href="aq.css">
+</head>
+<body>
+<div class="form-style-10">
+<h1>Sign Up Now!<span>Sign up and tell us what you think of the site!</span></h1>
+<form>
+    <div class="section"><span>1</span>First Name & Address</div>
+    <div class="inner-wrap">
+        <label>Your Full Name <input type="text" name="field1" /></label>
+        <label>Address <textarea name="field2"></textarea></label>
+    </div>
+
+    <div class="section"><span>2</span>Email & Phone</div>
+    <div class="inner-wrap">
+        <label>Email Address <input type="email" name="field3" /></label>
+        <label>Phone Number <input type="text" name="field4" /></label>
+    </div>
+
+    <div class="section"><span>3</span>Passwords</div>
+        <div class="inner-wrap">
+        <label>Password <input type="password" name="field5" /></label>
+        <label>Confirm Password <input type="password" name="field6" /></label>
+    </div>
+    <div class="button-section">
+     <input type="submit" name="Sign Up" />
+     <span class="privacy-policy">
+     <input type="checkbox" name="field7">You agree to our Terms and Policy. 
+     </span>
+    </div>
+</form>
+</div>
+</body>
+</html>
+
+
+
+ -->
