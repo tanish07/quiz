@@ -6,7 +6,7 @@ function Student()
     if (password1 != password2) 
     { 
         alert ("\nPasswords did not match: Please try again..."); 
-        return false; 
+        return false;
     } 
 
     else
@@ -15,6 +15,8 @@ function Student()
 
         var rollno = document.getElementById('rollno').value;
         var name = document.getElementById('name').value;
+
+        // document.getElementById("div1").innerHTML += "<p></p>";
         var dob = document.getElementById('dob').value;
         var course = document.getElementById('course').value;
         var year = document.getElementById('year').value;
@@ -42,13 +44,15 @@ function Student()
                     sessionStorage.setItem("course", JSON.stringify(response[4]));
                     sessionStorage.setItem("year", JSON.stringify(response[5]));
 
-                    location.href="http://localhost:8080/Student3_war/HTML/Table.html";
+                    //location.href="../HTML/studentHome.html";
+
+                    
 
                 }
             }
         });
-        
-        // location.replace("http://localhost:8080/quiz_war/HTML/studentLogin.html");
-        return true; 
+        // document.getElementById("div1").innerHTML += "<p>"+name+"</p>";
+        return true;
+        window,location = "../HTML/studentHome.html";
     } 
-} 
+}
