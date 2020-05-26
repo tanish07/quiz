@@ -1,10 +1,10 @@
 function func() 
 {
-    var id = document.getElementById("id").value;
-    var pass = document.getElementById("password").value;
+    var name = document.getElementById("faculty_id").value;
+    var password = document.getElementById("password").value;
     var api = "/Student3_war/webapi/Student/login";
-    var text =  {"StudentId":id,"Password":pass};
-    // console.log(text);
+    var text =  {"name":name,"password":password};
+    console.log(text);
     $.ajax
     ({
         type : "POST",
@@ -14,15 +14,19 @@ function func()
         cache: false,
         statusCode:
         {
-            200:	function(response)
+            200:    function(response)
             {
                 sessionStorage.setItem("id", JSON.stringify(response));
                 location.href="http://localhost:8080/Student3_war/HTML/Table.html";
 
             },
-            204:	function()
+            404:    function()
             {
-                alert("Invalid Credentials");
+                alert("Username Not Found");
+            }
+            401:    function()
+            {
+                alert("Incorrect Password");
             }
         }
     });

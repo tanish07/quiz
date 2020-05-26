@@ -14,7 +14,7 @@
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<script src="../bootstrap/js/bootstrap.min.js"></script>
 	<script src="../JS/studentInfo.js"></script>
-	<script src="../JS/studentTable.js"></script>
+	<script src="../JS/studentHome.js"></script>
 	
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -40,9 +40,8 @@
 	<!-- Navigation Bar -->
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 		<form class="form-inline mx-auto">
-			<input class="form-control mr-sm-2" type="search" placeholder="Search Faculty Name"
-			aria-label="Search" >
-			<button class="btn btn-light my-sm-0" type="submit">Search</button>
+			<input class="form-control mr-sm-2" id="faculty_name" type="search" placeholder="Search Faculty Name" autocomplete="off">
+			<button class="btn btn-light my-sm-0" type="submit" onclick="setFaculty()">Search</button>
 		</form>
 		<a href="#" class="btn btn-info btn-md">
           <span class="glyphicon glyphicon-log-out"></span> Log out
@@ -55,14 +54,8 @@
 			<div class="col">
 				<img src="../images/icon.jpeg" class="logo_image">
 			</div>
-			<div id="studentInfo"  style="font-style: oblique; font-size: medium;">
+			<div id="studentInfo"  style="font-style: italic;">
 				<ul style="list-style: none;"></ul>
-				<!-- <ul style="list-style: none;">
-					<li>Student Name</li>
-					<li>Student Roll Number</li>
-					<li>Course</li>
-					<li>Session</li>
-				</ul> -->
 			</div>
 		</div>
 

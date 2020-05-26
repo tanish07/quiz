@@ -1,5 +1,3 @@
-
-
 function StudentInfo()
 {
     var name = sessionStorage.getItem("name");

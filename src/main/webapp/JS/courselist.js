@@ -1,4 +1,3 @@
-
 var user = JSON.parse(sessionStorage.getItem("id"));
 if(id != null) {
 su_id="id="+id

@@ -1,4 +1,4 @@
-var name = JSON.parse(sessionStorage.getItem("name"));
+var name = JSON.parse(sessionStorage.getItem("facultyname"));
  if(name != null) {
      var cu_id = "name=" + name;
      var api="http://localhost:8080/quiz_war/webapi/quiz/testlistbyuserid?"+cu_id;

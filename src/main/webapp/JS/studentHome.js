@@ -1,4 +1,4 @@
- var id = JSON.parse(sessionStorage.getItem("id"));
+var id = JSON.parse(sessionStorage.getItem("id"));
  if(id != null) {
      var cu_id = "id=" + id;
      var api="http://localhost:8080/quiz_war/webapi/quiz/testlistbyuserid?"+cu_id;
@@ -34,6 +34,23 @@
  }
  else
  {
-     location.replace("http://localhost:8080/quiz_war/HTML/Login.html");
+     location.replace("http://localhost:8080/quiz_war/HTML/studentLogin.html");
  }
+function setFaculty() 
+{
+    var facultyname = document.getElementById("faculty_name").value;
 
+    var api = "/Student3_war/webapi/Student/login";
+    var text =  {"facultyname":facultyname};
+
+    $.ajax
+    ({
+        type : "POST",
+        url : api,
+        data : text,
+        async: false,
+        cache: false,
+        sessionStorage.setItem("facultyname", facultyname);
+    });
+    location.href="../HTML/searchFaculty.html";
+}

@@ -10,11 +10,9 @@ $.get(api, function (table, status) {
                 + '<td>' + table[i].slot2 + '</td>'
                 + '<td>' + table[i].slot3 + '</td>'
                 + '<td>' + table[i].slot4 + '</td>'
-                + '</tr>';
-                						
+                + '</tr>';            						
         }
         $('#TimeTable tbody').html(table_data_body);
     }
     $('#TimeTable').DataTable();
 });
-
