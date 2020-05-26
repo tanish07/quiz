@@ -20,7 +20,7 @@
 				<div class="col-12 icon">
 					<img src="../images/icon.jpeg">
 				</div> 
-					<form class="col-12 col-md-12 col-lg-12 col-xs-12" id="Register_form" onSubmit = "return Student()" >
+					<form class="col-12 col-md-12 col-lg-12 col-xs-12" id="Register_form" >
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Enter Roll Number" autocomplete="off" id="rollno" required >
 						</div>
@@ -43,7 +43,9 @@
 							<input type="password" class="form-control" placeholder="Retype Password" autocomplete="off" id="password2" required>
 						</div>
 
-						<input type="submit" class="btn" value="Register">
+						<button class="btn" onclick="Student();">Register</button>
+
+						<!-- <input onclick="Student();" class="btn" value="Register"> -->
 					</form>
 					<p>Already Registered? <a href="studentLogin.html">Login</a></p>
 
