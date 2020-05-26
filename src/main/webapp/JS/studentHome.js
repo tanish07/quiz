@@ -20,7 +20,7 @@ var id = JSON.parse(sessionStorage.getItem("id"));
              "<th>Marks</th></tr> </thead>";
              for (var i = 0; i < student.length; i++) 
              {
-                 var q1="http://localhost:8080/Student3_war/HTML/FacultyInfo.html?testid="+student[i][0]+"?testaid="+student[i][4]+">";
+                 var q1="http://localhost:8080/quiz_war/HTML/AnswerList.html?testid="+student[i][0]+"?testaid="+student[i][4]+">";
                  // var q2="http://localhost:8080/Student3_war/HTML/FacultyInfo.html?testaid="+student[i][4]+">";
                 
                  student_tests_list +=  '<tr><td><a href='+q1+student[i][1] + '</a></td>'
@@ -36,21 +36,10 @@ var id = JSON.parse(sessionStorage.getItem("id"));
  {
      location.replace("http://localhost:8080/quiz_war/HTML/studentLogin.html");
  }
+
 function setFaculty() 
 {
     var facultyname = document.getElementById("faculty_name").value;
-
-    var api = "/Student3_war/webapi/Student/login";
-    var text =  {"facultyname":facultyname};
-
-    $.ajax
-    ({
-        type : "POST",
-        url : api,
-        data : text,
-        async: false,
-        cache: false,
         sessionStorage.setItem("facultyname", facultyname);
-    });
-    location.href="../HTML/searchFaculty.html";
+    location.href="http://localhost:8080/quiz_war/HTML/searchFaculty.html";
 }

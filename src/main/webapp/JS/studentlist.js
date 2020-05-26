@@ -1,21 +1,17 @@
 
  var id = JSON.parse(sessionStorage.getItem("id"));
-
- if(id != null) 
- {
+ if(id != null) {
      var cu_id = "id=" + id;
      // var api = "/Student3_war/webapi/Student/getTimeTable/" + id;
-     var api="http://localhost:8080/Student3_war/webapi/Student/getTimeTable?"+cu_id;
-
+     var api="http://localhost:8080/quiz_war/webapi/quiz/getTimeTable?"+cu_id;
      $.get(api, function (student, status) {
          console.log(student);
          // alert("In studentlisttt ");
          if (status == "success") {
              // var student=JSON.parse(s);
              var tab1 = JSON.parse(sessionStorage.getItem("table"));
-             
              if(tab1 == null)
-                sessionStorage.setItem("table", JSON.stringify(student));
+             sessionStorage.setItem("table", JSON.stringify(student));
              else
              {
                  sessionStorage.removeItem("table");
@@ -25,7 +21,7 @@
              $("#TimeTable").html("");
              var student_data_body = "";
              student_data_body += " <thead> <tr> <th>Time</th> <th>Monday</th> <th>Tuesday</th> <th>Wednesday</th> <th>Thursday</th> <th>Friday</th> <th>Saturday</th> </tr> </thead>";
-             for (var i = 1; i < 4; i++) {
+             for (var i = 0; i < 4; i++) {
 //            var domainName = student[i].domain.discipline + " " + student[i].domain.branch;
 //            var photograph = '<img src="' + student[i].photograph + '" height="80" alt="' + student[i].rollNumber + '">'
                  if(i==0)
@@ -49,11 +45,11 @@
                      student_data_body += '<tr>'
                          + '<td>' +"3.30 to 5:00"+ '</td>';
                  }
-                 var q1="http://localhost:8080/Student3_war/HTML/FacultyInfo.html?testid="+student[i][0]+">";
+                 var q1="http://localhost:8080/Student3_war/HTML/FacultyInfo.html?cname="+student[i][0]+">";
                  var q2="http://localhost:8080/Student3_war/HTML/FacultyInfo.html?cname="+student[i][1]+">";
                  var q3="http://localhost:8080/Student3_war/HTML/FacultyInfo.html?cname="+student[i][2]+">";
                  var q4="http://localhost:8080/Student3_war/HTML/FacultyInfo.html?cname="+student[i][3]+">";
-                 var q5="http://localhost:8080/Student3_war/HTML/FacultyInfo.html?testaid="+student[i][4]+">";
+                 var q5="http://localhost:8080/Student3_war/HTML/FacultyInfo.html?cname="+student[i][4]+">";
                  var q6="http://localhost:8080/Student3_war/HTML/FacultyInfo.html?cname="+student[i][5]+">";
                  student_data_body +=  '<td><a href='+q1+student[i][0] + '</a></td>'
                      + '<td><a href='+q2+student[i][1] + '</a></td>'

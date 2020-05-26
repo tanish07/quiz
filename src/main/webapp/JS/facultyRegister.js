@@ -6,18 +6,18 @@ function Student()
     if (password1 != password2) 
     { 
         alert ("\nPasswords did not match: Please try again..."); 
-        return false;
+        // return false;
     } 
 
     else
     { 
-        alert ("\nRegistered Successfully"); 
+        // alert ("\nRegistered Successfully");
 
         var name = document.getElementById('name').value;
         var dob = document.getElementById('dob').value;
         var course = document.getElementById('course').value;
 
-        var api = "/Student3_war/webapi/Student/login";
+        var api = "http://localhost:8080/quiz_war/webapi/quiz/createfaculty";
         var text =  {"name":name,"dob":dob,"course":course,
                     "password":password1};
         // console.log(text);
@@ -33,15 +33,13 @@ function Student()
                 200:    function(response)
                 {
                     sessionStorage.setItem("id", JSON.stringify(response[0]));
-                    sessionStorage.setItem("name", JSON.stringify(response[2]));
-                    sessionStorage.setItem("dob", JSON.stringify(response[3]));
-                    sessionStorage.setItem("course", JSON.stringify(response[4]));
-                    //location.href="../HTML/studentHome.html";
+                    sessionStorage.setItem("name", JSON.stringify(response[1]));
+                    sessionStorage.setItem("dob", JSON.stringify(response[2]));
+                    sessionStorage.setItem("course", JSON.stringify(response[3]));
+                    location.href="http://localhost:8080/quiz_war/HTML/facultyHome.html";
                 }
             }
         });
-        // document.getElementById("div1").innerHTML += "<p>"+name+"</p>";
-        return true;
-        window,location = "../HTML/facultyHome.html";
+        // window,location = "../HTML/facultyHome.html";
     } 
 }

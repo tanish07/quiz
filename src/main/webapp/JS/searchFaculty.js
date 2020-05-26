@@ -1,7 +1,7 @@
 var name = JSON.parse(sessionStorage.getItem("facultyname"));
  if(name != null) {
      var cu_id = "name=" + name;
-     var api="http://localhost:8080/quiz_war/webapi/quiz/testlistbyuserid?"+cu_id;
+     var api="http://localhost:8080/quiz_war/webapi/quiz/testlistbyfacultyname?"+cu_id;
      $.get(api, function (faculty, status) {
          console.log(faculty);
          if (status == "success") {
@@ -20,7 +20,7 @@ var name = JSON.parse(sessionStorage.getItem("facultyname"));
              "<th>Password</th><th></th></tr> </thead>";
              for (var i = 0; i < faculty.length; i++) 
              {
-                var q1="http://localhost:8080/Student3_war/HTML/FacultyInfo.html?testid="+faculty[i][0]">";
+                var q1="http://localhost:8080/Student3_war/HTML/performTest.html?testid="+faculty[i][0]+">";
                 
                 faculty_tests_list +=  '<tr><td><a href='+q1+'</a>'+faculty[i][1]+'</td>';
                 if(faculty[i][2] == 'true')

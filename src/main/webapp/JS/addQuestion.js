@@ -19,7 +19,7 @@ function first(){
     var n=document.getElementById("testname").value;
     var p=document.getElementById("testpassword").value;
     test.facultyid = JSON.parse(sessionStorage.getItem("id"));
-    test.duration=d;
+    test.duration=parseInt(d,10);
     test.name=n;
     test.password=p;
     sessionStorage.setItem("table", JSON.stringify(test));
@@ -58,22 +58,22 @@ function submit1(){
     sessionStorage.setItem("table", JSON.stringify(test));
     var api = "http://localhost:8080/quiz_war/webapi/quiz/savetest";
 
-    // $.ajax
-    // ({
-    //     type : "POST",
-    //     url : api,
-    //     data : test,
-    //     async: false,
-    //     cache: false,
-    //     statusCode:
-    //         {
-    //             200:	function(response)
-    //             {
-    //                 location.href="http://localhost:8080/Student3_war/HTML/facultyHome.html";
-    //
-    //             }
-    //         }
-    // });
+    $.ajax
+    ({
+        type : "POST",
+        url : api,
+        data : test,
+        async: false,
+        cache: false,
+        statusCode:
+            {
+                200:	function(response)
+                {
+                    location.href="http://localhost:8080/Student3_war/HTML/facultyHome.html";
+
+                }
+            }
+    });
 }
 
 
