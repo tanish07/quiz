@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public class Json1 {
     private int facultyid;
-    private int duration;
+    private String duration;
     private String name;
     private String password;
-    private ArrayList<Question> questionlist;
+    private ArrayList<data.Question> questionlist;
 
     public int getFacultyid() {
         return facultyid;
@@ -19,11 +19,11 @@ public class Json1 {
         this.facultyid = facultyid;
     }
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
@@ -43,11 +43,11 @@ public class Json1 {
         this.password = password;
     }
 
-    public ArrayList<Question> getQuestionlist() {
+    public ArrayList<data.Question> getQuestionlist() {
         return questionlist;
     }
 
-    public void setQuestionlist(ArrayList<Question> questionlist) {
+    public void setQuestionlist(ArrayList<data.Question> questionlist) {
         this.questionlist = questionlist;
     }
 }

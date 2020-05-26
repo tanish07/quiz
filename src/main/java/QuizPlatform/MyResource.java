@@ -56,7 +56,7 @@ public class MyResource {
     @POST
     @Path("/studentlogin")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces("text/plain")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response studentlogin(
             @FormParam("rollno") String rollno,
             @FormParam("password") String password)
@@ -65,6 +65,7 @@ public class MyResource {
         session.beginTransaction();
         List list=session.createQuery("From beans.Student").list();
         Iterator it=list.iterator();
+        ArrayList<String> l=new ArrayList<>();
         while(it.hasNext())
         {
             beans.Student st= (beans.Student) it.next();
@@ -80,11 +81,17 @@ public class MyResource {
 
                     }
                     else {
+                        l.add(st.getId()+"");
+                        l.add(st.getRollNo());
+                        l.add(st.getName());
+                        l.add(st.getDob());
+                        l.add(st.getCourse());
+                        l.add(st.getYear());
                         st.setLogin(false);
                         session.save(st);
                         session.getTransaction().commit();
                         session.close();
-                        return Response.status(Response.Status.OK).entity(st.getId()).build();
+                        return Response.status(Response.Status.OK).entity(l).build();
                     }
                 }
                 else
@@ -123,7 +130,7 @@ public class MyResource {
     @POST
     @Path("/facultylogin")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces("text/plain")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response facultylogin(
             @FormParam("name") String name,
             @FormParam("password") String password)
@@ -132,6 +139,7 @@ public class MyResource {
         session.beginTransaction();
         List list=session.createQuery("From beans.Faculty").list();
         Iterator it=list.iterator();
+        ArrayList<String> l=new ArrayList<>();
         while(it.hasNext())
         {
             beans.Faculty st= (beans.Faculty) it.next();
@@ -147,11 +155,15 @@ public class MyResource {
 
                     }
                     else {
+                        l.add(st.getId()+"");
+                        l.add(st.getName());
+                        l.add(st.getDob());
+                        l.add(st.getCourse());
                         st.setLogin(false);
                         session.save(st);
                         session.getTransaction().commit();
                         session.close();
-                        return Response.status(Response.Status.OK).entity(st.getId()).build();
+                        return Response.status(Response.Status.OK).entity(l).build();
                     }
                 }
                 else
@@ -171,7 +183,7 @@ public class MyResource {
     @POST
     @Path("/createstudent")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces("text/plain")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response createstudent(
             @FormParam("rollno") String rollno,
             @FormParam("name") String name,
@@ -194,6 +206,7 @@ public class MyResource {
         session.beginTransaction();
         List list=session.createQuery("From beans.Student").list();
         Iterator it=list.iterator();
+        ArrayList<String> li=new ArrayList<>();
         while(it.hasNext()) {
             beans.Student st = (beans.Student) it.next();
             if (st.getRollNo().equals(rollno)) {
@@ -204,9 +217,15 @@ public class MyResource {
         }
         try {
             int id = (Integer)session.save(s);
+            li.add(id+"");
+            li.add(rollno);
+            li.add(name);
+            li.add(dob);
+            li.add(course);
+            li.add(year);
             session.getTransaction().commit();
             session.close();
-            return Response.status(Response.Status.OK).entity(id).build();
+            return Response.status(Response.Status.OK).entity(li).build();
         }
         catch(Exception e)
         {
@@ -240,6 +259,7 @@ public class MyResource {
         session.beginTransaction();
         List list=session.createQuery("From beans.Faculty").list();
         Iterator it=list.iterator();
+        ArrayList<String> li=new ArrayList<>();
         while(it.hasNext()) {
             beans.Faculty st = (beans.Faculty) it.next();
             if (st.getName().equals(name)) {
@@ -250,9 +270,13 @@ public class MyResource {
         }
         try {
             int id = (Integer)session.save(s);
+            li.add(id+"");
+            li.add(name);
+            li.add(dob);
+            li.add(course);
             session.getTransaction().commit();
             session.close();
-            return Response.status(Response.Status.OK).entity(id).build();
+            return Response.status(Response.Status.OK).entity(li).build();
         }
         catch(Exception e)
         {
@@ -263,12 +287,11 @@ public class MyResource {
     }
 
 
-    @POST
+    @GET
     @Path("/testlistbyfacultyname")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public Response testList(
-            @FormParam("name") String name)
+            @QueryParam("name") String name)
     {
 
         Session session = SessionUtil.getSession();
@@ -307,12 +330,12 @@ public class MyResource {
         session.close();
         return Response.ok().entity(l).build();
     }
-    @POST
+    @GET
     @Path("/testlistbyuserid")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+//    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public Response testListByUser(
-            @FormParam("id") int id)
+            @QueryParam("id") int id)
     {
 
         Collection<Test> list=null;
@@ -572,7 +595,7 @@ public class MyResource {
     public Response questionList(data.Json1 js)
     {
         Test test=new Test();
-        test.setDuration(js.getDuration());
+        test.setDuration(Integer.parseInt(js.getDuration()));
         test.setName(js.getName());
         if(js.getPassword().equals(""))
             test.setOpen(true);
@@ -580,14 +603,30 @@ public class MyResource {
             test.setOpen(false);
         test.setPassword(js.getPassword());
         System.out.println(js.getQuestionlist().size()+" in savetest");
-        Iterator<Question> it=js.getQuestionlist().iterator();
+        Iterator<data.Question> it=js.getQuestionlist().iterator();
         Session session = SessionUtil.getSession();
         session.beginTransaction();
+        Collection<Question> al=new ArrayList<>();
         while(it.hasNext())
         {
-            session.save(it.next());
+            data.Question q=it.next();
+            Question ques=new Question();
+            ques.setId(0);
+            ques.setMarks(Integer.parseInt(q.getMarks()));
+            ques.setQuest(q.getQuest());
+            ques.setAnswer(q.getAnswer());
+            ques.setOption1(q.getOption1());
+            ques.setOption2(q.getOption2());
+            ques.setOption3(q.getOption3());
+            ques.setOption4(q.getOption4());
+            if(q.getMcq().equals("true"))
+                ques.setMcq(true);
+            else
+                ques.setMcq(false);
+            al.add(ques);
+            session.save(ques);
         }
-        test.setQuestions(js.getQuestionlist());
+        test.setQuestions(al);
         beans.Faculty f=session.get(beans.Faculty.class,js.getFacultyid());
         System.out.println(f.getTests().size()+" facultyTestSize");
 //        Collection<Test> tl=f.getTests();

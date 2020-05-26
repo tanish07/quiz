@@ -6,7 +6,8 @@ import javax.persistence.Id;
 public class Question {
 
 //    private Integer id;
-    private boolean mcq;
+    private String marks;
+    private String mcq;
     private String option1;
     private String option2;
     private String option3;
@@ -23,11 +24,20 @@ public class Question {
 //        this.id = id;
 //    }
 
-    public boolean isMcq() {
+
+    public String getMarks() {
+        return marks;
+    }
+
+    public void setMarks(String marks) {
+        this.marks = marks;
+    }
+
+    public String getMcq() {
         return mcq;
     }
 
-    public void setMcq(boolean mcq) {
+    public void setMcq(String mcq) {
         this.mcq = mcq;
     }
 
