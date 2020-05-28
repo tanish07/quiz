@@ -57,12 +57,14 @@ function submit1(){
     test.questionlist=array;
     sessionStorage.setItem("table", JSON.stringify(test));
     var api = "http://localhost:8080/quiz_war/webapi/quiz/savetest";
-
+    var text=JSON.stringify(test);
     $.ajax
     ({
         type : "POST",
         url : api,
-        data : test,
+        dataType:"json",
+        contentType:"application/json",
+        data : JSON.stringify(test),
         async: false,
         cache: false,
         statusCode:

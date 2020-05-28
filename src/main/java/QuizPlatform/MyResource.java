@@ -507,12 +507,11 @@ public class MyResource {
         session.close();
         return Response.status(Response.Status.OK).entity(marks).build();
     }
-    @POST
+    @GET
     @Path("/testlistbyfacultyid")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public Response testList(
-            @FormParam("id") int id)
+            @QueryParam("id") int id)
     {
 
         Session session = SessionUtil.getSession();

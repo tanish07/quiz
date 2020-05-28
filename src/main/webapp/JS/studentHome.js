@@ -29,7 +29,7 @@ var id = JSON.parse(sessionStorage.getItem("id"));
              }
              $('#QuizTable').append(student_tests_list);
          }
-         $('#QuizTable').DataTable();
+         $('#QuizTable').dataTable();
      });
  }
  else
@@ -40,6 +40,6 @@ var id = JSON.parse(sessionStorage.getItem("id"));
 function setFaculty() 
 {
     var facultyname = document.getElementById("faculty_name").value;
-        sessionStorage.setItem("facultyname", facultyname);
+        sessionStorage.setItem("facultyname", JSON.stringify(facultyname));
     location.href="http://localhost:8080/quiz_war/HTML/searchFaculty.html";
 }
