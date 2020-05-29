@@ -1,173 +1,146 @@
-(function() 
- {
-  var allQuestions = [{
-    question: "The tree sends downroots from its branches to the soil is know as:",
-    options: ["Oak", "Pine", "Banyan", "Palm"],
-    answer: 2
-  }, {
-    question: "Electric bulb filament is made of",
-    options: ["Copper", "Aluminum", "lead", "Tungsten"],
-    answer: 3
-  }, {
-    question: "Non Metal that remains liquid at room temprature is",
-    options: ["Phophorous", "Bromine", "Clorine","Helium"],
-    answer: 1
-  },{
-    question: "Which of the following is used in Pencils ?",
-    options: ["Graphite", "Silicon", "Charcoal", "Phosphorous"],
-    answer: 0
-  }, {
-    question: "Chemical formula of water ?",
-    options: ["NaA1O2", "H2O", "Al2O3", "CaSiO3"],
-    answer: 1
-  },{
-    question: "The gas filled in electric bulb is ?",
-    options: ["Nitrogen", "Hydrogen", "Carbon Dioxide", "Oxygen"],
-    answer: 0
-  },{
-    question: "Whashing soda is the comman name for",
-    options: ["Sodium Carbonate", "Calcium Bicarbonate", "Sodium Bicarbonate", "Calcium Carbonate"],
-    answer: 0
-  },{
-    question: "Which gas is not known as green house gas ?",
-    options: ["Methane", "Nitrous oxide", "Carbon Dioxide", "Hydrogen"],
-    answer: 3
-  },{
-    question: "The hardest substance availabe on earth is",
-    options: ["Gold", "Iron", "Diamond", "Platinum"],
-    answer: 2
-  },{
-    question: "Used as a lubricant",
-    options: ["Graphite", "Silica", "Iron Oxide", "Diamond"],
-    answer: 0
-    }];
-  
-  var quesCounter = 0;
-  var selectOptions = [];
-  var quizSpace = $('#quiz');
-    
-  nextQuestion();
-    
-  $('#next').click(function () 
-    {
-        chooseOption();
-        if (isNaN(selectOptions[quesCounter])) 
+function func() 
+{
+    var studentid = sessionStorage.getItem("studentid");
+    var testid = sessionStorage.getItem("testid");
+
+    var api = "/Student3_war/webapi/Student/login";
+    var text =  {"studentid":studentid,"testid":testid};
+
+    $.ajax
+    ({
+        type : "POST",
+        url : api,
+        data : text,
+        async: false,
+        cache: false,
+        statusCode:
         {
-            alert('Please answer the question!');
-        } 
-        else 
-        {
-          quesCounter++;
-          nextQuestion();
-        }
-    });
-  
-  $('#prev').click(function () 
-    {
-        chooseOption();
-        quesCounter--;
-        nextQuestion();
-    });
-  
-  function createElement(index) 
-    {
-        var element = $('<div>',{id: 'question'});
-        var header = $('<h2>Question No. ' + (index + 1) + ' :</h2>');
-        element.append(header);
-
-        var question = $('<p>').append(allQuestions[index].question);
-        element.append(question);
-
-        // var mcq = 'true';
-        // if (mcq == 'true') 
-        // {
-          var radio = radioButtons(index);
-          element.append(radio);
-        // }
-        // else
-        // {
-        //   textbox = $('<input type="text" name="answer_oneword"/>')
-        //   element.append(textbox);
-        // }
-        
-
-        return element;
-    }
-  
-  function radioButtons(index) 
-  {
-      var radioItems = $('<ul>');
-      var item;
-      var input = '';
-      for (var i = 0; i < allQuestions[index].options.length; i++) {
-        item = $('<li>');
-        input = '<input type="radio" name="answer" value=' + i + ' />';
-        input += allQuestions[index].options[i];
-        item.append(input);
-        radioItems.append(item);
-      }
-      return radioItems;
-  }
-  
-  function chooseOption() 
-    {
-      // var mcq = 'true';
-      // if(mcq == 'true')
-      // {
-        selectOptions[quesCounter] = +$('input[name="answer"]:checked').val();
-      // }
-      // else
-      // {
-      //   selectOptions[quesCounter] = +$('input[name="answer_oneword"]').val();
-      // }
-      
-    }
-   
-  function nextQuestion() 
-    {
-        quizSpace.fadeOut(function() 
+            200:    function(response)
             {
-              $('#question').remove();
-              if(quesCounter < allQuestions.length)
+                for (var i = 0; i < response.length; i++) 
                 {
-                    var nextQuestion = createElement(quesCounter);
-                    quizSpace.append(nextQuestion).fadeIn();
-                    if (!(isNaN(selectOptions[quesCounter]))) 
+                    var question="";
+                    var qno = i+1;
+                    question += "<p>Q "+qno+". "+response[i][0]+"</p>";
+                    if (response[i][1] == 'true') 
                     {
-                      $('input[value='+selectOptions[quesCounter]+']').prop('checked', true);
+                        question += "<label><input type='radio' id='"+i+"' value='1'>"+response[i][2]+"</label><br>";
+                        question += "<label><input type='radio' id='"+i+"' value='2'>"+response[i][3]+"</label><br>"
+                        question += "<label><input type='radio' id='"+i+"' value='3'>"+response[i][4]+"</label><br>"
+                        question += "<label><input type='radio' id='"+i+"' value='4'>"+response[i][5]+"</label><br>"
                     }
-                    if(quesCounter === 1)
+                    else
                     {
-                      $('#prev').show();
+                        question += "<label><textarea id='"+i+"' rows='1' cols='25'></textarea></label><br>";
                     } 
-                    else if(quesCounter === 0)
-                    {
-                      $('#prev').hide();
-                      $('#next').show();
-                    }
+                    document.getElementById("questions").innerHTML += question;                       
                 }
-              else 
-                {
-                    var scoreRslt = displayResult();
-                    quizSpace.append(scoreRslt).fadeIn();
-                    $('#next').hide();
-                    $('#prev').hide();
-                }
-        });
-    }
-  
-  function displayResult() 
-    {
-        var score = $('<p>',{id: 'question'});
-        var correct = 0;
-        for (var i = 0; i < selectOptions.length; i++) 
-        {
-          if (selectOptions[i] === allQuestions[i].answer) 
-          {
-            correct++;
-          }
+            }
         }
-        score.append('You scored ' + correct + ' out of ' +allQuestions.length);
-        return score;
-  }
-})();
+    });
+
+
+// var response = [
+//     ["The tree sends downroots from its branches to the soil is know as:",
+//     "true",
+//     "Oak",
+//     "Pine",
+//     "Banyan",
+//     "Palm"],
+//     ["Electric bulb filament is made of",
+//     "false",
+//     "Copper",
+//     "Aluminum",
+//     "lead",
+//     "Tungsten"],
+//     ["Non Metal that remains liquid at room temprature is",
+//     "true",
+//     "Phophorous",
+//     "Bromine",
+//     "Clorine",
+//     "Helium"],
+//     ["Which of the following is used in Pencils ?",
+//     "true",
+//     "Graphite", 
+//     "Silicon",
+//     "Charcoal", 
+//     "Phosphorous"]
+//     ]; 
+
+//     for (var i = 0; i < response.length; i++) 
+//     {
+//         var question="";
+//         var qno = i+1;
+//         question += "<p>Q "+qno+". "+response[i][0]+"</p>";
+//         if (response[i][1] == 'true') 
+//         {
+//             question += "<label><input type='radio' id='"+i+"' value='1'>"+response[i][2]+"</label><br>";
+//             question += "<label><input type='radio' id='"+i+"' value='2'>"+response[i][3]+"</label><br>"
+//             question += "<label><input type='radio' id='"+i+"' value='3'>"+response[i][4]+"</label><br>"
+//             question += "<label><input type='radio' id='"+i+"' value='4'>"+response[i][5]+"</label><br>"
+//         }
+//         else
+//         {
+//             question += "<label><textarea id='"+i+"' rows='1' cols='25'></textarea></label><br>";
+//         } 
+//         document.getElementById("questions").innerHTML += question;                       
+//     }
+
+}
+
+function answersList() 
+{
+    var answers = [];
+    var ele = document.getElementsByTagName('input'); 
+    var text = document.getElementsByTagName('textarea');
+      
+    for(i = 0; i < ele.length; i++) 
+    {      
+        if(ele[i].type="radio") 
+        { 
+          
+            if(ele[i].checked)
+            {
+                // answers[ele[i].id] = ele[i].value;
+                var qno = parseInt(ele[i].id) + 1;
+                answers.push(qno+":"+ele[i].value);
+                
+            }   
+        } 
+    }
+
+    for (var i = 0; i < text.length; i++) 
+    {
+        var qno = parseInt(text[i].id) + 1;
+        answers.push(qno+":"+text[i].value);
+    }
+    
+    // for (var i = 0; i < answers.length; i++) 
+    // {
+    //     console.log(answers[i]);
+    // }
+
+    // alert("Test Submitted Successfully");
+    // location.href="../HTML/trial.html";
+    var test=new Object();
+    Object.answerlist = answers;
+    sessionStorage.setItem("test", JSON.stringify(test));
+    var api = "http://localhost:8080/quiz_war/webapi/quiz/savetest";
+
+    $.ajax
+    ({
+        type : "POST",
+        url : api,
+        data : test,
+        async: false,
+        cache: false,
+        statusCode:
+            {
+                200:    function(response)
+                {
+                    alert(respose);
+                    location.href="http://localhost:8080/Student3_war/HTML/studentHome.html";
+                }
+            }
+    });
+}
