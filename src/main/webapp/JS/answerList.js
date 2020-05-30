@@ -2,7 +2,7 @@ var query=window.location.href.slice( window.location.href.indexOf( '?' ) + 1 ) 
 // var value11=window.location.href.substring(0)
 // var value2=urlparam.get('testaid');
 // var cu_id = "testid=" + value1 +"&testaid="+value2;
-var api="http://localhost:8080/quiz_war/webapi/quiz/studentlist?"+query;
+var api="http://localhost:8080/quiz_war/webapi/quiz/answerlist?"+query;
 $.get(api, function (faculty, status) {
     // console.log(faculty);
     if (status == "success") {

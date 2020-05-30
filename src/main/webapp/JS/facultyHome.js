@@ -20,9 +20,9 @@ $.get(api, function (faculty, status) {
      faculty_tests_list += " <thead> <tr> <th>Test Name</th> <th>Duration</th></tr> </thead>";
      for (var i = 0; i < faculty.length; i++) 
      {
-        var q11="http://localhost:8080/quiz_war/HTML/testPerformed.html?testid="+faculty[i][0]+">";
+        var q1="http://localhost:8080/quiz_war/HTML/testPerformed.html?id="+faculty[i][0]+">";
         
-        faculty_tests_list +=  '<tr><td><a href='+q11+'</a>'+faculty[i][1]+'</td>'
+        faculty_tests_list +=  '<tr><td><a href='+q1+faculty[i][1]+'</a></td>'
                                 +'<td>'+faculty[i][2]+'</td></tr>';
      }
      $('#FacultyTable').append(faculty_tests_list);
