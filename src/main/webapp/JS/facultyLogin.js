@@ -1,9 +1,9 @@
 function func() 
 {
-    var rollno = document.getElementById("student_id").value;
+    var name = document.getElementById("faculty_name").value;
     var password = document.getElementById("password").value;
-    var api = "http://localhost:8080/quiz_war/webapi/quiz/facultylogin";
-    var text =  {"name":rollno,"password":password};
+    var api = "/Student3_war/webapi/Student/login";
+    var text =  {"name":name,"password":password};
     console.log(text);
     $.ajax
     ({
@@ -16,25 +16,17 @@ function func()
         {
             200:    function(response)
             {
-                var intValue=parseInt(response[0]);
-                sessionStorage.setItem("id", JSON.stringify(intValue));
-                sessionStorage.setItem("name", JSON.stringify(response[1]));
-                sessionStorage.setItem("dob", JSON.stringify(response[2]));
-                sessionStorage.setItem("course", JSON.stringify(response[3]));
-                location.href="http://localhost:8080/quiz_war/HTML/facultyHome.html";
+                sessionStorage.setItem("id", JSON.stringify(response));
+                location.href="http://localhost:8080/Student3_war/HTML/Table.html";
 
             },
-            406:    function()
+            404:    function()
             {
-                alert("Already Login");
-            },
+                alert("Username Not Found");
+            }
             401:    function()
             {
-                alert("Password Not Matched");
-            },
-            204:    function()
-            {
-                alert("Rollno not found");
+                alert("Incorrect Password");
             }
         }
     });
