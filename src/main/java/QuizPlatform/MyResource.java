@@ -366,13 +366,13 @@ public class MyResource {
         return Response.ok().entity(ls).build();
     }
 
-    @POST
+    @GET
     @Path("/answerlist")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public Response answerList(
-            @FormParam("testid") int tid,
-            @FormParam("testaid") int taid)
+            @QueryParam("testid") int tid,
+            @QueryParam("testaid") int taid)
     {
 
         Test test=null;
@@ -541,12 +541,12 @@ public class MyResource {
         return Response.ok().entity(l).build();
     }
 
-    @POST
+    @GET
     @Path("/studentlist")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+//    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public Response studentList(
-            @FormParam("id") int id)
+            @QueryParam("id") int id)
     {
 
         Collection<beans.Student> list=null;

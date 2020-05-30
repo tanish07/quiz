@@ -26,23 +26,28 @@ var name = JSON.parse(sessionStorage.getItem("facultyname"));
                  th.innerHTML=arr1[i];
                 tr.appendChild(th);
              }
-             for (var i = 0; i < faculty.length; i++)
+             var indexA=new Array();
+             for (var i11 = 0; i11 < faculty.length; i11++)
+             {
+                 indexA.push(i11-1);
+             }
+             indexA.forEach(function (id,value)
              {
                  tr=table.insertRow(-1);
-                 var q1="http://localhost:8080/Student3_war/HTML/performTest.html?testid="+faculty[i][0]+">";
+                 // var q1="http://localhost:8080/Student3_war/HTML/performTest.html?testid="+faculty[i][0]+">";
                  var a=document.createElement('th');
                  // a.href=q1;
-                 a.innerHTML=faculty[i][1];
+                 a.innerHTML=faculty[value][1];
                  tr.appendChild(a);
                  var th1=document.createElement('th');
-                 th1.innerHTML=faculty[i][4];
+                 th1.innerHTML=faculty[value][4];
                  tr.appendChild(th1);
-                 if(faculty[i][2] == 'false')
+                 if(faculty[value][2] == 'false')
                  {
                      var input=document.createElement('input');
                      input.type="password";
                      input.placeholder="Enter Password";
-                     input.id=i;
+                     input.id="input"+value;
                      tr.appendChild(input);
                      var btn=document.createElement('button');
                      btn.innerHTML='Attempt Test';
@@ -50,17 +55,18 @@ var name = JSON.parse(sessionStorage.getItem("facultyname"));
                      // var pswd=faculty[i][3];
                      btn.onclick=function () {
                          var tab11 = JSON.parse(sessionStorage.getItem("table"));
-                         var password = input.value;
-                         var i1=input.id;
-                         sessionStorage.setItem("i1", JSON.stringify(i1));
+                         var password = document.getElementById("input"+value).value;
+                         sessionStorage.setItem("i1", JSON.stringify(value));
                          sessionStorage.setItem("p", password);
-                         if (password != tab11[i1][3])
+                         if (password != tab11[value][3])
                          {
                              alert("Incorrect Password");
                          }
                          else
                          {
-                             location.replace("http://localhost:8080/quiz_war/HTML/performTest.html");
+                             var intValue=parseInt(tab11[value][0]);
+                             sessionStorage.setItem("testid", JSON.stringify(intValue));
+                             location.replace("http://localhost:8080/quiz_war/HTML/attemptQuiz.html");
                          }
                      };
                      tr.appendChild(btn);
@@ -71,13 +77,17 @@ var name = JSON.parse(sessionStorage.getItem("facultyname"));
                      tr.appendChild(th2);
                      var btn=document.createElement('button');
                      btn.innerHTML='Attempt Test';
+                     btn.id="button"+value;
                      btn.style="text-align: center;";
                      btn.onclick=function () {
-                             location.replace("http://localhost:8080/quiz_war/HTML/performTest.html");
+                         var tab11 = JSON.parse(sessionStorage.getItem("table"));
+                         sessionStorage.setItem("testid", JSON.stringify(tab11[value][0]));
+                             location.replace("http://localhost:8080/quiz_war/HTML/attemptQuiz.html");
                      };
                      tr.appendChild(btn);
                  }
              }
+             );
 
 
              // $("#QuizTableFaculty").html("");

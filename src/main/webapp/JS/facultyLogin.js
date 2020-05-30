@@ -1,9 +1,9 @@
 function func() 
 {
-    var name = document.getElementById("faculty_id").value;
+    var rollno = document.getElementById("student_id").value;
     var password = document.getElementById("password").value;
     var api = "http://localhost:8080/quiz_war/webapi/quiz/facultylogin";
-    var text =  {"name":name,"password":password};
+    var text =  {"name":rollno,"password":password};
     console.log(text);
     $.ajax
     ({
@@ -16,7 +16,8 @@ function func()
         {
             200:    function(response)
             {
-                sessionStorage.setItem("id", JSON.stringify(response[0]));
+                var intValue=parseInt(response[0]);
+                sessionStorage.setItem("id", JSON.stringify(intValue));
                 sessionStorage.setItem("name", JSON.stringify(response[1]));
                 sessionStorage.setItem("dob", JSON.stringify(response[2]));
                 sessionStorage.setItem("course", JSON.stringify(response[3]));

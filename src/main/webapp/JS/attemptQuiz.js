@@ -1,11 +1,9 @@
 function func() 
 {
-    var studentid = sessionStorage.getItem("studentid");
-    var testid = sessionStorage.getItem("testid");
-
-    var api = "/Student3_war/webapi/Student/login";
+    var studentid = JSON.parse(sessionStorage.getItem("id"));
+    var testid = JSON.parse(sessionStorage.getItem("testid"));
+    var api = "http://localhost:8080/quiz_war/webapi/quiz/questionlist";
     var text =  {"studentid":studentid,"testid":testid};
-
     $.ajax
     ({
         type : "POST",
@@ -17,6 +15,7 @@ function func()
         {
             200:    function(response)
             {
+                sessionStorage.setItem("trial1",response[0][0]);
                 for (var i = 0; i < response.length; i++) 
                 {
                     var question="";
@@ -114,32 +113,28 @@ function answersList()
         var qno = parseInt(text[i].id) + 1;
         answers.push(qno+":"+text[i].value);
     }
-    
-    // for (var i = 0; i < answers.length; i++) 
-    // {
-    //     console.log(answers[i]);
-    // }
-
-    // alert("Test Submitted Successfully");
-    // location.href="../HTML/trial.html";
     var test=new Object();
-    Object.answerlist = answers;
-    sessionStorage.setItem("test", JSON.stringify(test));
-    var api = "http://localhost:8080/quiz_war/webapi/quiz/savetest";
+    test.answerlist = answers;
+    test.testid = JSON.parse(sessionStorage.getItem("testid"));
+    test.studentid = JSON.parse(sessionStorage.getItem("id"));
+    sessionStorage.setItem("answerlist",JSON.stringify(test));
+    var api = "http://localhost:8080/quiz_war/webapi/quiz/saveanswer";
 
     $.ajax
     ({
         type : "POST",
         url : api,
-        data : test,
+        dataType:"json",
+        contentType:"application/json",
+        data : JSON.stringify(test),
         async: false,
         cache: false,
         statusCode:
             {
                 200:    function(response)
                 {
-                    alert(respose);
-                    location.href="http://localhost:8080/Student3_war/HTML/studentHome.html";
+                    alert(response);
+                    location.href="http://localhost:8080/quiz_war/HTML/studentHome.html";
                 }
             }
     });

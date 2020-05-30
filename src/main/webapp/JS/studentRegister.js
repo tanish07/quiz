@@ -34,7 +34,8 @@ function Student()
             {
                 200:    function(response)
                 {
-                    sessionStorage.setItem("id", JSON.stringify(response[0]));
+                    var intValue=parseInt(response[0]);
+                    sessionStorage.setItem("id", JSON.stringify(intValue));
                     sessionStorage.setItem("rollno", JSON.stringify(response[1]));
                     sessionStorage.setItem("name", JSON.stringify(response[2]));
                     sessionStorage.setItem("dob", JSON.stringify(response[3]));
