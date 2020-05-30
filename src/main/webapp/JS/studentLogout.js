@@ -1,7 +1,7 @@
 function logout()
 {
 	var id = sessionStorage.getItem("id");
-    var api = "/quiz_war/webapi/quiz/studentlogout";
+    var api = "http://localhost:8080/quiz_war/webapi/quiz/studentlogout";
     var text =  {"id":id};
 
     $.ajax

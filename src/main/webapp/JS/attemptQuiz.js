@@ -21,6 +21,7 @@ function func()
                     var question="";
                     var qno = i+1;
                     question += "<p>Q "+qno+". "+response[i][0]+"</p>";
+                    question += "<p>("+response[i][7]+" Marks)</p>";
                     if (response[i][1] == 'true') 
                     {
                         question += "<label><input type='radio' id='"+i+"' value='1'>"+response[i][2]+"</label><br>";

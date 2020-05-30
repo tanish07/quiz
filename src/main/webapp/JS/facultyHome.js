@@ -37,5 +37,5 @@ else
 
 function create()
 {
-        location.replace("http://localhost:8080/quiz_war/HTML/addquestions.html");
+        location.replace("http://localhost:8080/quiz_war/HTML/addquestion.html");
 }
