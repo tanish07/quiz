@@ -15,7 +15,7 @@ function logout()
         {
             200:    function(response)
             {
-                location.replace("http://localhost:8080/quiz_war/HTML/facultyLogin.html");
+                location.replace("http://localhost:8080/quiz_war/HTML/homePage.html");
             }
         }
     });

@@ -71,7 +71,7 @@ function submit1(){
             {
                 200:	function(response)
                 {
-                    location.href="http://localhost:8080/Student3_war/HTML/facultyHome.html";
+                    location.href="http://localhost:8080/quiz_war/HTML/facultyHome.html";
 
                 }
             }
