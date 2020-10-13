@@ -138,7 +138,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13.1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
@@ -150,6 +150,6 @@
         <java.version>1.8</java.version>
         <jaxb.version>2.3.0</jaxb.version>
         <jackson.version>2.10.0</jackson.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
     </properties>
 </project>
